@@ -98,7 +98,7 @@ COPY --from=builder /home/builder/yum-packaging-precompiled-kmod/RPMS/*/*.rpm /r
 COPY --from=builder --chmod=444 /home/builder/yum-packaging-precompiled-kmod/tmp/firmware/*.bin /lib/firmware/nvidia/${DRIVER_VERSION}/
 # Temporary workaround until the permanent fix for libdnf is merged
 RUN mv /etc/selinux /etc/selinux.tmp											   
-RUN dnf install -y /rpms/kmod-nvidia-*.rpm
+RUN dnf install -y /rpms/kmod-nvidia-*.rpm; dnf -y clean all
 
 COPY nvidia-toolkit-firstboot.service /usr/lib/systemd/system/nvidia-toolkit-firstboot.service
 
